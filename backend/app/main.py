@@ -1,12 +1,16 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from app.schemas import IndexRepoRequest, IndexRepoResponse, QueryRequest, QueryResponse
 from app.services.index_service import index_repo
 from app.services.rag_service import answer_question
 from app.services.repo_service import list_repos
+from app.services.pr_review_service import review_pull_request
+
 
 app = FastAPI(title="AI Codebase Assistant", version="1.0")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,13 +20,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+class PRRequest(BaseModel):
+    pr_url: str
+
+
 @app.get("/health")
 def health():
     return {"ok": True}
 
+
 @app.get("/repos")
 def repos():
     return {"repos": list_repos()}
+
 
 @app.post("/index", response_model=IndexRepoResponse)
 def index(req: IndexRepoRequest):
@@ -31,6 +42,7 @@ def index(req: IndexRepoRequest):
         return IndexRepoResponse(**result)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @app.post("/query", response_model=QueryResponse)
 def query(req: QueryRequest):
@@ -41,3 +53,9 @@ def query(req: QueryRequest):
         raise HTTPException(status_code=404, detail="repo_id not found. Index it first.")
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/review-pr")
+def review_pr(req: PRRequest):
+    review = review_pull_request(req.pr_url)
+    return {"review": review}
