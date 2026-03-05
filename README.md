@@ -37,6 +37,7 @@ Docker containers
 7. Generate explanation
 
 ## Demo
+![AI Codebase Assistant Demo](demo.png)
 
 1. Index a repository:
 
