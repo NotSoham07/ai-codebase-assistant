@@ -1,19 +1,72 @@
-# AI Codebase Assistant (RAG)
+# AI Codebase Assistant
 
-An AI-powered developer assistant that indexes a GitHub repo and answers questions using:
-- OpenAI embeddings (vector search)
-- FAISS for retrieval
-- OpenAI Responses API for final answers
+An AI-powered developer assistant that indexes GitHub repositories and answers questions about the codebase using Retrieval-Augmented Generation (RAG).
 
 ## Features
-- Index any public GitHub repo URL
-- Semantic search across code and docs
-- Answer questions with file citations
-- React chat UI + FastAPI backend
-- Docker + docker-compose
 
-## Quickstart (Docker)
-1) Create `.env` from `.env.example` and add `OPENAI_API_KEY`
-2) Run:
-```bash
-docker compose up --build
+• Index any public GitHub repository  
+• Semantic code search using vector embeddings  
+• AI explanations of code architecture  
+• File-level citations for responses  
+• React-based chat interface  
+
+## Architecture
+
+Frontend  
+React + Vite
+
+Backend  
+FastAPI
+
+AI Stack  
+SentenceTransformers embeddings  
+FAISS vector search  
+Qwen3-Coder-Plus via Scitely API
+
+Infrastructure  
+Docker containers
+
+## System Flow
+
+1. Clone GitHub repository
+2. Split files into chunks
+3. Generate embeddings
+4. Store vectors in FAISS
+5. Retrieve relevant code snippets
+6. Send context to LLM
+7. Generate explanation
+
+## Example Questions
+
+Explain how routing works  
+Where is authentication implemented  
+What is the entry point of the application  
+How are API requests validated
+
+## Demo
+
+1. Index a repository:
+
+https://github.com/tiangolo/fastapi
+
+2. Ask:
+
+Explain how routing works
+
+The assistant retrieves relevant code and generates an explanation with file references.
+
+## Tech Stack
+
+Python  
+FastAPI  
+React  
+Docker  
+FAISS  
+SentenceTransformers  
+Scitely API (Qwen3)
+
+## Future Improvements
+
+• GitHub PR review assistant  
+• Architecture diagram generation  
+• Repo dependency graph visualization  
