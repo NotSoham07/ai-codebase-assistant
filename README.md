@@ -36,13 +36,6 @@ Docker containers
 6. Send context to LLM
 7. Generate explanation
 
-## Example Questions
-
-Explain how routing works  
-Where is authentication implemented  
-What is the entry point of the application  
-How are API requests validated
-
 ## Demo
 
 1. Index a repository:
@@ -63,7 +56,7 @@ React
 Docker  
 FAISS  
 SentenceTransformers  
-Scitely API (Qwen3)
+Scitely API (Qwen3) - Free API prompts
 
 ## Future Improvements
 
